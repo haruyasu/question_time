@@ -44,6 +44,16 @@
         :answer="answer"
         :key="index"
       />
+      <div class="my-4">
+        <p v-show="loadingAnswers">...loading...</p>
+        <button
+          v-show="next"
+          @click="getQuestionAnswers"
+          class="btn btn-sm btn-outline-success"
+        >
+          Lead More
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -69,7 +79,9 @@ export default {
       newAnswerBody: null,
       error: null,
       userHasAnswered: false,
-      showForm: false
+      showForm: false,
+      next: false,
+      loadingAnswers: false
     };
   },
   methods: {
@@ -86,8 +98,18 @@ export default {
     },
     getQuestionAnswers() {
       let endpoint = `/api/questions/${this.slug}/answers/`;
+      if (this.next) {
+        endpoint = this.next;
+      }
+      this.loadingAnswers = true;
       apiService(endpoint).then(data => {
-        this.answers = data.results;
+        this.answers.push(...data.results);
+        this.loadingAnswers = false;
+        if (data.next) {
+          this.next = data.next;
+        } else {
+          this.next = null;
+        }
       });
     },
     onSubmit() {
