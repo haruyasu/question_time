@@ -19,9 +19,7 @@ function apiService(endpoint, method, data) {
       "X-CSRFTOKEN": CSRF_TOKEN
     }
   };
-  return fetch(endpoint, config)
-    .then(handleResponse)
-    .catch(error => console.log(error));
+  return fetch(endpoint, config).then(handleResponse);
 }
 
 export { apiService };
