@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { apiService } from "../common/api.service.js";
+import { apiService } from "@/common/api.service.js";
 export default {
   name: "QuestionEditor",
   data() {

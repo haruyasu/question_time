@@ -6,21 +6,22 @@
 </template>
 
 <script>
-import NavbarComponent from "./components/Navbar.vue"
+import NavbarComponent from "@/components/Navbar.vue";
 export default {
   name: "App",
   components: {
     NavbarComponent
   }
-}
+};
 </script>
 
 <style>
-    html, body {
-        height: 100%;
-    }
+html,
+body {
+  height: 100%;
+}
 
-    .btn:focus {
-      box-shadow: none !important;
-    }
+.btn:focus {
+  box-shadow: none !important;
+}
 </style>
