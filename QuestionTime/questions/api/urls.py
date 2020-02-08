@@ -22,7 +22,6 @@ urlpatterns = [
         name="answer-detail"),
 
     path("answers/<int:pk>/like/",
-        qv.AnswerListAPIView.as_view(),
+        qv.AnswerLikeAPIView.as_view(),
         name="answer-like")
-
 ]

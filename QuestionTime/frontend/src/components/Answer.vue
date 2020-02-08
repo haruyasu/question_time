@@ -18,11 +18,24 @@
         Delete
       </button>
     </div>
+    <div v-else>
+      <button
+        class="btn btn-sm"
+        @click="toggleLike"
+        :class="{
+          'btn-danger': userLikedAnswer,
+          'btn-outline-danger': !userLikedAnswer
+        }"
+      >
+        <strong>Like {{ likesCounter }}</strong>
+      </button>
+    </div>
     <hr />
   </div>
 </template>
 
 <script>
+import { apiService } from "@/common/api.service.js";
 export default {
   name: "AnswerComponent",
   props: {
@@ -35,12 +48,33 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      userLikedAnswer: this.answer.user_has_voted,
+      likesCounter: this.answer.likes_count
+    };
+  },
   computed: {
     isAnswerAuthor() {
       return this.answer.author === this.requestUser;
     }
   },
   methods: {
+    toggleLike() {
+      this.userLikedAnswer === false ? this.likeAnswer() : this.unLikeAnswer();
+    },
+    likeAnswer() {
+      this.userLikedAnswer = true;
+      this.likesCounter += 1;
+      let endpoint = `/api/answers/${this.answer.id}/like/`;
+      apiService(endpoint, "POST");
+    },
+    unLikeAnswer() {
+      this.userLikedAnswer = false;
+      this.likesCounter -= 1;
+      let endpoint = `/api/answers/${this.answer.id}/like/`;
+      apiService(endpoint, "DELETE");
+    },
     triggerDeleteAnswer() {
       this.$emit("delete-answer", this.answer);
     }
