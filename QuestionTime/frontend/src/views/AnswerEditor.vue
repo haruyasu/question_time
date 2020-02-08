@@ -48,8 +48,7 @@ export default {
     // to.params.previousAnswer = data.body;
     // to.params.questionSlug = data.question_slug;
     return next(vm => {
-      vm.answerBody = data.body,
-      vm.questionSlug = data.question_slug
+      (vm.answerBody = data.body), (vm.questionSlug = data.question_slug);
     });
   }
 };
