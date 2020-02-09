@@ -159,7 +159,7 @@ export default {
         this.$delete(this.answers, this.answers.indexOf(answer));
         this.userHasAnswered = false;
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   },
